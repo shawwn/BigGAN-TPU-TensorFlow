@@ -10,6 +10,8 @@ import subprocess
 import os.path
 import math
 
+import async_checkpoint
+
 import logging
 logger = logging.getLogger(__name__)
 
@@ -53,9 +55,17 @@ def main():
 	setup_logging(args)
 	gan = BigGAN(args)
 
+  hooks = []
+
+  hooks.append(
+      async_checkpoint.AsyncCheckpointSaverHook(
+          checkpoint_dir=FLAGS.model_dir,
+          save_steps=max(100, args.steps_per_loop)))
+
 	run_main_loop(args, 
 		get_estimator(args, gan), 
-		get_estimator(args, gan, True))
+		get_estimator(args, gan, True),
+    hooks=hooks)
 
 
 if __name__ == '__main__':

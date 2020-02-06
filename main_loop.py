@@ -17,7 +17,7 @@ from utils import *
 from args import *
 
 
-def run_main_loop(args, train_estimator, predict_estimator):
+def run_main_loop(args, train_estimator, predict_estimator, **train_kws):
 	total_steps = 0
 	train_steps = math.ceil(args.train_examples / args._batch_size)
 	eval_steps  = math.ceil(args.eval_examples  / args._batch_size)
@@ -36,7 +36,7 @@ def run_main_loop(args, train_estimator, predict_estimator):
 		for epoch in range(0, args.epochs, args.predict_every):
 
 			logger.info(f"Training epoch {epoch}")
-			train_estimator.train(input_fn=train_input_fn, steps=train_steps * args.predict_every)
+			train_estimator.train(input_fn=train_input_fn, steps=train_steps * args.predict_every, **train_kws)
 			total_steps += train_steps * args.predict_every
 
 			if args.use_comet:
