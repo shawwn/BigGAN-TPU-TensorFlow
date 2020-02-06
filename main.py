@@ -59,7 +59,7 @@ def main():
   saver.restore(sess, ckpt)
   with open('test.jpg', 'wb') as f:
     img = sess.run(fake_images[0] + 1.0, {label: [args.label]})/2*254
-    f.write(sess.run(tf.io.encode_jpeg(img)))
+    f.write(sess.run(tf.image.encode_jpeg(img)))
 
 if __name__ == '__main__':
   main()
