@@ -23,7 +23,8 @@ logger = logging.getLogger(__name__)
 # l2_decay : tf_contrib.layers.l2_regularizer(0.0001)
 # orthogonal_regularizer : orthogonal_regularizer(0.0001) / orthogonal_regularizer_fully(0.0001)
 
-weight_init = tf.truncated_normal_initializer(mean=0.0, stddev=0.02)
+#weight_init = tf.truncated_normal_initializer(mean=0.0, stddev=0.02)
+weight_init = tf.orthogonal_initializer(1.0)
 weight_regularizer = orthogonal_regularizer(0.0001)
 weight_regularizer_fully = orthogonal_regularizer_fully(0.0001)
 
