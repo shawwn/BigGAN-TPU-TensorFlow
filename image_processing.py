@@ -159,7 +159,8 @@ def distort_image(image, height, width, bbox, thread_id=0, use_summary=False, sc
     # ratio is not respected. We select a resize method in a round robin
     # fashion based on the thread number.
     # Note that ResizeMethod contains 4 enumerated resizing methods.
-    resize_method = thread_id % 4
+    #resize_method = thread_id % 4
+    resize_method = tf.image.ResizeMethod.AREA
     distorted_image = tf.image.resize_images(distorted_image, [height, width],
                                              method=resize_method)
     # Restore the shape since the dynamic slice based upon the bbox_size loses
@@ -200,7 +201,8 @@ def eval_image(image, height, width, scope=None):
 
     # Resize the image to the original height and width.
     image = tf.expand_dims(image, 0)
-    image = tf.image.resize_bilinear(image, [height, width],
+    image = tf.image.resize_images(image, [height, width],
+                                     method=tf.image.ResizeMethod.AREA,
                                      align_corners=False)
     image = tf.squeeze(image, [0])
     return image
