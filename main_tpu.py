@@ -57,10 +57,11 @@ def main():
 
 	hooks = []
 
-	hooks.append(
-			async_checkpoint.AsyncCheckpointSaverHook(
-					checkpoint_dir=FLAGS.model_dir,
-					save_steps=max(100, args.steps_per_loop)))
+	if args.checkpoint_dir is not None:
+		hooks.append(
+				async_checkpoint.AsyncCheckpointSaverHook(
+						checkpoint_dir=args.checkpoint_dir,
+						save_steps=max(100, args.steps_per_loop)))
 
 	run_main_loop(args, 
 		get_estimator(args, gan), 
