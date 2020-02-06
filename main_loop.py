@@ -10,6 +10,7 @@ import tensorflow as tf
 
 import logging
 logger = logging.getLogger(__name__)
+logger.setLevel(1)
 
 from inception_score import prefetch_inception_model
 from input import train_input_fn, eval_input_fn, predict_input_fn
