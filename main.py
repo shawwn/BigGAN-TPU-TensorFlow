@@ -49,7 +49,8 @@ def main():
   if args.seed == 0:
     z = tf.zeros(shape=[params['batch_size'], params['z_dim']], dtype=tf.float32)
   else:
-    z = tf.random.truncated_normal(shape=[params['batch_size'], params['z_dim']], name='random_z', seed=args.seed)
+    z = tf.random.normal(shape=[params['batch_size'], params['z_dim']], name='random_z', seed=args.seed)
+    z *= args.mul
   label = tf.placeholder(shape=[1], dtype=tf.int32)
   labels = tf.one_hot(label, params['num_labels'])
   with tf.variable_scope('', reuse=tf.AUTO_REUSE):
