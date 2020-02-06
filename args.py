@@ -103,6 +103,8 @@ def parse_args():
   # parser.add_argument('--num-samples'     , type=int      , default=36            , help='The number of sample images to save')
   
   parser.add_argument('--verbosity', type=str, default='INFO')
+  parser.add_argument('--label', type=int, default=0)
+  parser.add_argument('--seed', type=int, default=None)
 
   args = parser.parse_args()
   return check_args(args)

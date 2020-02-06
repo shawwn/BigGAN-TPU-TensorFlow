@@ -46,7 +46,10 @@ def main():
   #params = EasyDict({'z_dim': 128, 'batch_size': 1, 'use_tpu': False, 'ch': 64, 'sn': True, 'layers': 5, 'use_label_cond': True, 'self_attn_res': [64], 'img_ch': 3, 'img_size': 128, 'num_labels': 1000})
   #params = args
 
-  z = tf.random.truncated_normal(shape=[params['batch_size'], params['z_dim']], name='random_z')
+  if args.seed == 0:
+    z = tf.zeros(shape=[params['batch_size'], params['z_dim']], dtype=tf.float32)
+  else:
+    z = tf.random.truncated_normal(shape=[params['batch_size'], params['z_dim']], name='random_z', seed=args.seed)
   label = tf.placeholder(shape=[1], dtype=tf.int32)
   labels = tf.one_hot(label, params['num_labels'])
   with tf.variable_scope('', reuse=tf.AUTO_REUSE):
@@ -55,7 +58,7 @@ def main():
   saver = tf.train.Saver()
   saver.restore(sess, ckpt)
   with open('test.jpg', 'wb') as f:
-    img = sess.run(fake_images[0] + 1.0, {label: [6]})/2*254
+    img = sess.run(fake_images[0] + 1.0, {label: [args.label]})/2*254
     f.write(sess.run(tf.io.encode_jpeg(img)))
 
 if __name__ == '__main__':
