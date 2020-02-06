@@ -58,7 +58,7 @@ def main():
   ckpt = tf.train.latest_checkpoint(params['checkpoint_dir']) or params['checkpoint_dir']
   saver = tf.train.Saver()
   saver.restore(sess, ckpt)
-  with open('test.jpg', 'wb') as f:
+  with open(args.save, 'wb') as f:
     img = sess.run(fake_images[0] + 1.0, {label: [args.label]})/2*254
     f.write(sess.run(tf.image.encode_jpeg(img)))
 

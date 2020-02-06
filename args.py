@@ -106,6 +106,7 @@ def parse_args():
   parser.add_argument('--label', type=int, default=0)
   parser.add_argument('--seed', type=int, default=None)
   parser.add_argument('--mul', type=float, default=1.0)
+  parser.add_argument('--save', type=str, default='test.jpg')
 
   args = parser.parse_args()
   return check_args(args)
