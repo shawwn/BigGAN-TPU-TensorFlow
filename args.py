@@ -63,7 +63,7 @@ def parse_args():
   parser.add_argument('--batch-size'      , type=int             , default=2048  , dest="_batch_size"        , help='The size of batch across all GPUs')
   parser.add_argument('--ch'              , type=int             , default=64                                , help='base channel number per layer')
   parser.add_argument('--layers'          , type=int             , default=5 )
-  parser.add_argument('--self-attn-res'   , action='append', default=[64] )
+  parser.add_argument('--self-attn-res'   , action='append', default=[] )
 
   parser.add_argument('--use-tpu'         , action='store_true')
   parser.add_argument('--tpu-name'        , type=str             , default=os.environ.get('TPU_NAME', None))
