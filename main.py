@@ -54,7 +54,7 @@ def main():
   labels = tf.one_hot(label, params['num_labels'])
   with tf.variable_scope('', reuse=tf.AUTO_REUSE):
     fake_images = gan.generator(params, z, labels)
-  ckpt = tf.train.latest_checkpoint(params['checkpoint_dir'])
+  ckpt = tf.train.latest_checkpoint(params['checkpoint_dir']) or params['checkpoint_dir']
   saver = tf.train.Saver()
   saver.restore(sess, ckpt)
   with open('test.jpg', 'wb') as f:
